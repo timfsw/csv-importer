@@ -1,0 +1,14 @@
+en:
+  csv_importer:
+    report_done: "Import completed: %{details}"
+    report_pending: "Import hasn't started yet"
+    report_in_progress: "Import in progress"
+    report_invalid_header: "The following columns are required: %{columns}"
+    report_aborted: "Import aborted"
+    buckets:
+      created_rows: "%{size} created"
+      failed_to_create_rows: "%{size} failed to create"
+      updated_rows: "%{size} updated"
+      failed_to_update_rows: "%{size} failed to update"
+      create_skipped_rows: "%{size} create skipped"
+      update_skipped_rows: "%{size} update skipped"

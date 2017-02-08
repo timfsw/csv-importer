@@ -18,19 +18,19 @@ module CSVImporter
     private
 
     def report_pending
-      "Import hasn't started yet"
+      translate(:report_pending)
     end
 
     def report_in_progress
-      "Import in progress"
+      translate(:report_in_progress)
     end
 
     def report_done
-      "Import completed: " + import_details
+      translate(:report_done, details: import_details)
     end
 
     def report_invalid_header
-      "The following columns are required: #{report.missing_columns.join(", ")}"
+      translate(:report_invalid_header, columns: report.missing_columns.join(", "), count:  report.missing_columns.size)
     end
 
     def report_invalid_csv_file
@@ -38,7 +38,7 @@ module CSVImporter
     end
 
     def report_aborted
-      "Import aborted"
+      translate(:report_aborted)
     end
 
     # Generate something like: "3 created. 4 updated. 1 failed to create. 2 failed to update."
@@ -46,9 +46,14 @@ module CSVImporter
       report.attributes
         .select { |name, _| name["_rows"] }
         .select { |_, instances| instances.size > 0 }
-        .map { |bucket, instances| "#{instances.size} #{bucket.to_s.gsub('_rows', '').gsub('_', ' ')}" }
+        .map { |bucket, instances| translate("buckets.#{bucket}", size: instances.size, count: instances.size) }
         .join(", ")
     end
 
+    private
+
+    def translate(key, base: 'csv_importer', **opts)
+      I18n.t([base, key].compact.join('.'), opts)
+    end
   end # class ReportMessage
 end
