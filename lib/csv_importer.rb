@@ -1,5 +1,10 @@
 require "csv"
 require "virtus"
+require "i18n"
+
+# Include locales
+files = Dir[File.join(File.dirname(__FILE__), '..', "config/locales/*.yml")]
+I18n.load_path.concat(files)
 
 require "csv_importer/version"
 require "csv_importer/csv_reader"
