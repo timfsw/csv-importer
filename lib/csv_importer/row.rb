@@ -22,7 +22,7 @@ module CSVImporter
 
         set_attributes(model)
 
-        after_build_blocks.each { |block| instance_exec(model, &block) }
+        after_build_blocks.each { |block| block.call(model, self) }
         model
       end
     end
