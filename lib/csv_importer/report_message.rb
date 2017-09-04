@@ -30,7 +30,7 @@ module CSVImporter
     end
 
     def report_invalid_header
-      translate(:report_invalid_header, columns: report.missing_columns.join(", "), count:  report.missing_columns.size)
+      translate(:report_invalid_header, columns: report.missing_columns.join(', '), count: report.missing_columns.size)
     end
 
     def report_invalid_csv_file
@@ -44,7 +44,7 @@ module CSVImporter
     # Generate something like: "3 created. 4 updated. 1 failed to create. 2 failed to update."
     def import_details
       report.attributes
-        .select { |name, _| name["_rows"] }
+        .select { |name, _| name['_rows'] }
         .select { |_, instances| instances.size > 0 }
         .map { |bucket, instances| translate("buckets.#{bucket}", size: instances.size, count: instances.size) }
         .join(", ")
