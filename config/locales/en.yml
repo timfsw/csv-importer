@@ -12,3 +12,10 @@ en:
       failed_to_update_rows: "%{size} failed to update"
       create_skipped_rows: "%{size} create skipped"
       update_skipped_rows: "%{size} update skipped"
+    status:
+      pending: "pending"
+      in_progress: "in_progress"
+      done: "done"
+      aborted: "aborted"
+      invalid_header: "invalid_header"
+      invalid_csv_file: "invalid_csv_file"

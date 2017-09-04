@@ -59,5 +59,15 @@ module CSVImporter
     def message
       message_generator.call(self)
     end
+
+    def status_text
+      translate("status.#{status}")
+    end
+
+    private
+
+    def translate(key, base: 'csv_importer', **opts)
+      I18n.t([base, key].compact.join('.'), opts)
+    end
   end
 end
