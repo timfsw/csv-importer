@@ -7,6 +7,7 @@ module CSVImporter
     attribute :content, String
     attribute :file # IO
     attribute :path, String
+    attribute :remote_path, String
     attribute :quote_char, String, default: '"'
     attribute :encoding, String, default: 'UTF-8:UTF-8'
 
@@ -38,6 +39,8 @@ module CSVImporter
         file.read
       elsif path
         File.open(path).read
+      elsif remote_path
+        open(remote_path, "r:#{encoding.split(':').last.to_s.downcase}").read
       else
         raise Error, "Please provide content, file, or path"
       end
