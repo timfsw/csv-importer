@@ -7,6 +7,7 @@ module CSVImporter
     attribute :column_definitions, Array[ColumnDefinition], default: proc { [] }
     attribute :identifiers, Array[Symbol], default: []
     attribute :when_invalid, Symbol, default: proc { :skip }
+    attribute :before_find_blocks, Array[Proc], default: []
     attribute :after_build_blocks, Array[Proc], default: []
     attribute :after_save_blocks, Array[Proc], default: []
 
@@ -14,8 +15,13 @@ module CSVImporter
       super
       self.column_definitions = orig.column_definitions.dup
       self.identifiers = orig.identifiers.dup
-      self.after_save_blocks = orig.after_save_blocks.dup
+      self.before_find_blocks = orig.before_find_blocks.dup
       self.after_build_blocks = orig.after_build_blocks.dup
+      self.after_save_blocks = orig.after_save_blocks.dup
+    end
+
+    def before_find(block)
+      self.before_find_blocks << block
     end
 
     def after_build(block)

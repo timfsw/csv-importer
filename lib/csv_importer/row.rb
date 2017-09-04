@@ -11,6 +11,7 @@ module CSVImporter
     attribute :row_array, Array[String]
     attribute :model_klass
     attribute :identifiers, Array[Symbol]
+    attribute :before_find_blocks, Array[Proc], default: []
     attribute :after_build_blocks, Array[Proc], default: []
     attribute :skip, Boolean, default: false
 
@@ -93,6 +94,7 @@ module CSVImporter
 
       model = build_model
       set_attributes(model)
+      before_find_blocks.each { |block| block.call(model, self) }
       query = Hash[
         identifiers.map { |identifier| [ identifier, model.public_send(identifier) ] }
       ]

@@ -20,6 +20,10 @@ module CSVImporter
       config.when_invalid = action
     end
 
+    def before_find(&block)
+      config.before_find(block)
+    end
+
     def after_build(&block)
       config.after_build(block)
     end
